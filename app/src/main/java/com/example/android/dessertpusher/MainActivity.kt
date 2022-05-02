@@ -21,17 +21,20 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     private var revenue = 0
     private var dessertsSold = 0
+    private lateinit var dessertTimer: DessertTimer
 
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
@@ -72,7 +75,12 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         binding.dessertButton.setOnClickListener {
             onDessertClicked()
         }
-        Log.i("MainActivity", "CREATED AAA ")
+
+       Timber.i("CREATED AAA ")
+        dessertTimer = DessertTimer()
+
+
+
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -80,6 +88,9 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
+
+
+
     }
 
     /**
@@ -90,10 +101,10 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         // Update the score
         revenue += currentDessert.price
         dessertsSold++
-
         binding.revenue = revenue
         binding.amountSold = dessertsSold
-
+        //Animate it??
+        //binding.dessertButton.startAnimation(AnimationUtils.loadAnimation(this,R.anim.pop_animation))
         // Show the next dessert
         showCurrentDessert()
     }
@@ -150,8 +161,29 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     }
 
     override fun onStart() {
-        Log.i("MainActivity", "onStart Called")
+        Timber.w("onStart Called")
+        dessertTimer.startTimer()
         super.onStart()
     }
 
+    override fun onResume() {
+        Timber.w("onResume Called")
+        super.onResume()
+    }
+
+    override fun onStop() {
+        Timber.w("onStop called")
+        dessertTimer.stopTimer()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        Timber.w("onDestroy called")
+        super.onDestroy()
+    }
+
+    override fun onPause() {
+        Timber.w("onPause called")
+        super.onPause()
+    }
 }
