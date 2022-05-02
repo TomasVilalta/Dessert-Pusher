@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         }
 
        Timber.i("CREATED AAA ")
-        dessertTimer = DessertTimer()
+        dessertTimer = DessertTimer(this.lifecycle)
 
 
 
@@ -162,7 +162,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onStart() {
         Timber.w("onStart Called")
-        dessertTimer.startTimer()
+
         super.onStart()
     }
 
@@ -173,7 +173,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onStop() {
         Timber.w("onStop called")
-        dessertTimer.stopTimer()
+
         super.onStop()
     }
 
