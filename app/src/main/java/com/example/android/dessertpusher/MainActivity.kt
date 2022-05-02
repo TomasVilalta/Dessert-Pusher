@@ -18,6 +18,7 @@ package com.example.android.dessertpusher
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -71,6 +72,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         binding.dessertButton.setOnClickListener {
             onDessertClicked()
         }
+        Log.i("MainActivity", "CREATED AAA ")
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -146,4 +148,10 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onStart() {
+        Log.i("MainActivity", "onStart Called")
+        super.onStart()
+    }
+
 }
